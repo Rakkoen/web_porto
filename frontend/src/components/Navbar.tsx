@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { motion } from 'framer-motion'
+import RevealText from './RevealText'
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false)
@@ -36,7 +37,7 @@ const Navbar = () => {
       transition={{ duration: 0.5 }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
-          ? 'bg-white/90 backdrop-blur-md shadow-md'
+          ? 'bg-dark-primary/90 backdrop-blur-md border-b border-dark-border'
           : 'bg-transparent'
       }`}
     >
@@ -44,9 +45,11 @@ const Navbar = () => {
         <div className="flex justify-between items-center py-4">
           <Link
             to="/"
-            className="text-2xl font-bold text-primary-600 hover:text-primary-700 transition-colors"
+            className="text-2xl font-bold text-primary hover:text-gray-200 transition-colors tracking-tight"
           >
-            Rakha Hendriansyah Ismail
+            <RevealText>
+              Rakha Hendriansyah Ismail
+            </RevealText>
           </Link>
 
           {/* Desktop Navigation */}
@@ -55,20 +58,22 @@ const Navbar = () => {
               <Link
                 key={link.name}
                 to={link.path}
-                className={`font-medium transition-colors ${
+                className={`font-medium transition-colors tracking-tight ${
                   isActiveLink(link.path)
-                    ? 'text-primary-600'
-                    : 'text-gray-700 hover:text-primary-600'
+                    ? 'text-primary'
+                    : 'text-dark-text-secondary hover:text-primary'
                 }`}
               >
-                {link.name}
+                <RevealText delay={50}>
+                  {link.name}
+                </RevealText>
               </Link>
             ))}
           </div>
 
           {/* Mobile Menu Button */}
           <button
-            className="md:hidden text-gray-700 hover:text-primary-600 focus:outline-none"
+            className="md:hidden text-dark-text-secondary hover:text-primary focus:outline-none"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             aria-label="Toggle mobile menu"
           >
@@ -103,21 +108,23 @@ const Navbar = () => {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden py-4 border-t border-gray-200"
+            className="md:hidden py-4 border-t border-dark-border bg-dark-secondary"
           >
             <div className="flex flex-col space-y-4">
               {navLinks.map((link) => (
                 <Link
                   key={link.name}
                   to={link.path}
-                  className={`font-medium transition-colors ${
+                  className={`font-medium transition-colors tracking-tight ${
                     isActiveLink(link.path)
-                      ? 'text-primary-600'
-                      : 'text-gray-700 hover:text-primary-600'
+                      ? 'text-primary'
+                      : 'text-dark-text-secondary hover:text-primary'
                   }`}
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
-                  {link.name}
+                  <RevealText delay={50}>
+                    {link.name}
+                  </RevealText>
                 </Link>
               ))}
             </div>

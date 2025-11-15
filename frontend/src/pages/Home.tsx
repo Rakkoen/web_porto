@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
+import RevealText from '../components/RevealText'
 
 interface Project {
   id: number
@@ -57,9 +58,9 @@ const Home = () => {
   }
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-dark-primary">
       {/* Hero Section */}
-      <section className="min-h-screen flex items-center justify-center bg-gradient-to-br from-primary-50 to-white">
+      <section className="min-h-screen flex items-center justify-center bg-dark-gradient">
         <div className="container-max text-center">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -73,13 +74,13 @@ const Home = () => {
               transition={{ duration: 0.5, delay: 0.2 }}
               className="mb-8"
             >
-              <div className="w-40 h-40 mx-auto overflow-hidden rounded-full border-4 border-white shadow-lg">
+              <div className="w-40 h-40 mx-auto overflow-hidden rounded-full border-4 border-primary shadow-card">
                 <img
                   src="/profile-photo.jpg"
                   alt="Rakha Hendriansyah Ismail"
                   className="w-full h-full object-cover"
                   onError={(e) => {
-                    e.currentTarget.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Crect width='160' height='160' fill='%233B82F6'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='white' font-size='48' font-family='Arial, sans-serif'%3ERHI%3C/text%3E%3C/svg%3E";
+                    e.currentTarget.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Crect width='160' height='160' fill='%23000000'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='white' font-size='48' font-family='Arial, sans-serif'%3ERHI%3C/text%3E%3C/svg%3E";
                   }}
                 />
               </div>
@@ -89,27 +90,33 @@ const Home = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.4 }}
-              className="text-4xl md:text-6xl font-bold text-gray-900 mb-4"
+              className="text-4xl md:text-6xl font-bold text-primary mb-4 tracking-tight"
             >
-              Rakha Hendriansyah Ismail
+              <RevealText delay={400}>
+                Rakha Hendriansyah Ismail
+              </RevealText>
             </motion.h1>
 
             <motion.h2
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.6 }}
-              className="text-xl md:text-2xl text-gray-600 mb-6"
+              className="text-xl md:text-2xl text-dark-text-secondary mb-6 tracking-tight"
             >
-              Web Developer & Network Engineer
+              <RevealText delay={600}>
+                Web Developer & Network Engineer
+              </RevealText>
             </motion.h2>
 
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.8 }}
-              className="text-lg text-gray-700 mb-8 italic max-w-2xl mx-auto"
+              className="text-lg text-dark-text-secondary mb-8 italic max-w-2xl mx-auto tracking-tight"
             >
-              "Building reliable digital experiences with clean code and creative design."
+              <RevealText delay={800}>
+                "Building reliable digital experiences with clean code and creative design."
+              </RevealText>
             </motion.p>
 
             <motion.div
@@ -118,11 +125,15 @@ const Home = () => {
               transition={{ duration: 0.5, delay: 1 }}
               className="flex flex-col sm:flex-row gap-4 justify-center"
             >
-              <Link to="/portfolio" className="btn-primary">
-                Lihat Portofolio
+              <Link to="/portfolio" className="btn-white">
+                <RevealText delay={1000}>
+                  Lihat Portofolio
+                </RevealText>
               </Link>
               <Link to="/contact" className="btn-secondary">
-                Hubungi Saya
+                <RevealText delay={1200}>
+                  Hubungi Saya
+                </RevealText>
               </Link>
             </motion.div>
           </motion.div>
@@ -130,7 +141,7 @@ const Home = () => {
       </section>
 
       {/* Featured Projects Section */}
-      <section className="py-20 bg-gray-50">
+      <section className="py-20 bg-dark-secondary">
         <div className="container-max">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -139,17 +150,21 @@ const Home = () => {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Featured Projects
+            <h2 className="text-3xl md:text-4xl font-bold text-primary mb-4 tracking-tight">
+              <RevealText triggerOnView={true}>
+                Featured Projects
+              </RevealText>
             </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Check out some of my recent work and side projects
+            <p className="text-lg text-dark-text-secondary max-w-2xl mx-auto tracking-tight">
+              <RevealText triggerOnView={true} delay={100}>
+                Check out some of my recent work and side projects
+              </RevealText>
             </p>
           </motion.div>
 
           {loading ? (
             <div className="text-center py-12">
-              <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-primary-600"></div>
+              <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
             </div>
           ) : (
             <motion.div
@@ -164,32 +179,40 @@ const Home = () => {
                   key={project.id}
                   variants={itemVariants}
                   whileHover={{ y: -5 }}
-                  className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300"
+                  className="card card-hover overflow-hidden"
                 >
-                  <div className="h-48 bg-gradient-to-br from-primary-400 to-primary-600 flex items-center justify-center">
-                    <div className="text-white text-center">
+                  <div className="h-48 bg-gradient-to-br from-gray-800 to-black flex items-center justify-center">
+                    <div className="text-primary text-center">
                       <div className="text-2xl font-bold mb-2">{project.title}</div>
-                      <div className="text-sm opacity-90">{project.category}</div>
+                      <div className="text-sm opacity-70">{project.category}</div>
                     </div>
                   </div>
                   <div className="p-6">
-                    <h3 className="text-xl font-semibold mb-2">{project.title}</h3>
-                    <p className="text-gray-600 mb-4 line-clamp-3">{project.description}</p>
+                    <h3 className="text-xl font-semibold text-primary mb-2">
+                      <RevealText triggerOnView={true} delay={200}>
+                        {project.title}
+                      </RevealText>
+                    </h3>
+                    <p className="text-dark-text-secondary mb-4 line-clamp-3">
+                      <RevealText triggerOnView={true} delay={300}>
+                        {project.description}
+                      </RevealText>
+                    </p>
                     <div className="flex flex-wrap gap-2 mb-4">
                       {project.techStack.slice(0, 3).map((tech, techIndex) => (
                         <span
                           key={techIndex}
-                          className="px-3 py-1 bg-primary-100 text-primary-600 text-sm rounded-full"
+                          className="px-3 py-1 bg-dark-tertiary text-primary text-sm rounded-full border border-dark-border"
                         >
                           {tech}
                         </span>
                       ))}
                     </div>
                     <div className="flex justify-between items-center">
-                      <span className="text-sm text-gray-500">{project.year}</span>
+                      <span className="text-sm text-dark-text-secondary">{project.year}</span>
                       <Link
                         to="/portfolio"
-                        className="text-primary-600 hover:text-primary-700 font-medium"
+                        className="text-primary hover:text-gray-200 font-medium"
                       >
                         View Details →
                       </Link>
@@ -208,14 +231,16 @@ const Home = () => {
             className="text-center mt-12"
           >
             <Link to="/portfolio" className="btn-secondary">
-              View All Projects
+              <RevealText triggerOnView={true} delay={400}>
+                View All Projects
+              </RevealText>
             </Link>
           </motion.div>
         </div>
       </section>
 
       {/* Call to Action Section */}
-      <section className="py-20 bg-primary-600">
+      <section className="py-20 bg-dark-gradient">
         <div className="container-max text-center">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -224,14 +249,20 @@ const Home = () => {
             viewport={{ once: true }}
             className="max-w-3xl mx-auto"
           >
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-              Let's Work Together
+            <h2 className="text-3xl md:text-4xl font-bold text-primary mb-4 tracking-tight">
+              <RevealText triggerOnView={true}>
+                Let's Work Together
+              </RevealText>
             </h2>
-            <p className="text-xl text-primary-100 mb-8">
-              Have a project in mind? I'd love to hear about it. Let's create something amazing together.
+            <p className="text-xl text-dark-text-secondary mb-8 tracking-tight">
+              <RevealText triggerOnView={true} delay={100}>
+                Have a project in mind? I'd love to hear about it. Let's create something amazing together.
+              </RevealText>
             </p>
-            <Link to="/contact" className="bg-white text-primary-600 px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 transition-colors duration-200">
-              Get In Touch
+            <Link to="/contact" className="btn-white">
+              <RevealText triggerOnView={true} delay={200}>
+                Get In Touch
+              </RevealText>
             </Link>
           </motion.div>
         </div>

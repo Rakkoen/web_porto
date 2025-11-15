@@ -7,6 +7,7 @@ import {
   SiNestjs, SiMikrotik, SiCisco, SiUbiquiti,
   SiFortinet
 } from 'react-icons/si'
+import RevealText from '../components/RevealText'
 
 const Skills = () => {
 
@@ -33,23 +34,23 @@ const Skills = () => {
 
   const getSkillIcon = (skillName: string) => {
     const iconMap: { [key: string]: React.ReactNode } = {
-      'React': <FaReact className="text-blue-500" />,
-      'NestJS': <SiNestjs className="text-red-600" />,
-      'TypeScript': <SiTypescript className="text-blue-600" />,
-      'MySQL': <SiMysql className="text-blue-600" />,
-      'PostgreSQL': <SiPostgresql className="text-blue-700" />,
-      'Docker': <FaDocker className="text-blue-600" />,
-      'Vercel': <SiVercel className="text-black" />,
-      'Mikrotik': <SiMikrotik className="text-blue-600" />,
-      'Cisco': <SiCisco className="text-blue-700" />,
-      'Ubiquiti': <SiUbiquiti className="text-black" />,
-      'Ruijie': <FaLinux className="text-red-600" />,
-      'Fortigate': <SiFortinet className="text-red-700" />,
-      'NMS': <FaLinux className="text-gray-800" />,
-      'Windows': <FaWindows className="text-blue-600" />,
-      'Linux': <FaLinux className="text-gray-800" />
+      'React': <FaReact className="text-primary" />,
+      'NestJS': <SiNestjs className="text-primary" />,
+      'TypeScript': <SiTypescript className="text-primary" />,
+      'MySQL': <SiMysql className="text-primary" />,
+      'PostgreSQL': <SiPostgresql className="text-primary" />,
+      'Docker': <FaDocker className="text-primary" />,
+      'Vercel': <SiVercel className="text-primary" />,
+      'Mikrotik': <SiMikrotik className="text-primary" />,
+      'Cisco': <SiCisco className="text-primary" />,
+      'Ubiquiti': <SiUbiquiti className="text-primary" />,
+      'Ruijie': <FaLinux className="text-primary" />,
+      'Fortigate': <SiFortinet className="text-primary" />,
+      'NMS': <FaLinux className="text-primary" />,
+      'Windows': <FaWindows className="text-primary" />,
+      'Linux': <FaLinux className="text-primary" />
     }
-    return iconMap[skillName] || <FaLinux className="text-gray-600" />
+    return iconMap[skillName] || <FaLinux className="text-primary" />
   }
 
   const techStackSkills = [
@@ -77,7 +78,7 @@ const Skills = () => {
   ]
 
   return (
-    <div className="min-h-screen pt-20">
+    <div className="min-h-screen pt-20 bg-dark-primary">
       <div className="container-max section-padding">
         {/* Header */}
         <motion.div
@@ -86,12 +87,16 @@ const Skills = () => {
           transition={{ duration: 0.5 }}
           className="text-center mb-16"
         >
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-            Skills & Expertise
+          <h1 className="text-4xl md:text-5xl font-bold text-primary mb-6 tracking-tight">
+            <RevealText>
+              Skills & Expertise
+            </RevealText>
           </h1>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            A comprehensive overview of my technical skills across different domains
-            including web development, networking, and system administration.
+          <p className="text-xl text-dark-text-secondary max-w-3xl mx-auto tracking-tight">
+            <RevealText delay={100}>
+              A comprehensive overview of my technical skills across different domains
+              including web development, networking, and system administration.
+            </RevealText>
           </p>
         </motion.div>
 
@@ -103,8 +108,10 @@ const Skills = () => {
           viewport={{ once: true }}
           className="mb-20"
         >
-          <h2 className="text-3xl font-bold text-gray-900 mb-12 text-center">
-            Tech Stack
+          <h2 className="text-3xl font-bold text-primary mb-12 text-center tracking-tight">
+            <RevealText triggerOnView={true}>
+              Tech Stack
+            </RevealText>
           </h2>
           <motion.div
             variants={containerVariants}
@@ -118,15 +125,23 @@ const Skills = () => {
                 key={skill.name}
                 variants={itemVariants}
                 whileHover={{ scale: 1.05, y: -5 }}
-                className="bg-white rounded-lg shadow-md p-6 text-center hover:shadow-lg transition-all duration-300"
+                className="card card-hover p-6 text-center"
               >
                 <div className="w-20 h-20 mx-auto mb-4 flex items-center justify-center">
                   <div className="text-5xl">
                     {getSkillIcon(skill.name)}
                   </div>
                 </div>
-                <h3 className="font-semibold text-gray-900 mb-2">{skill.name}</h3>
-                <p className="text-sm text-gray-600">{skill.category}</p>
+                <h3 className="font-semibold text-primary mb-2 tracking-tight">
+                  <RevealText triggerOnView={true} delay={100}>
+                    {skill.name}
+                  </RevealText>
+                </h3>
+                <p className="text-sm text-dark-text-secondary tracking-tight">
+                  <RevealText triggerOnView={true} delay={200}>
+                    {skill.category}
+                  </RevealText>
+                </p>
               </motion.div>
             ))}
           </motion.div>
@@ -140,8 +155,10 @@ const Skills = () => {
           viewport={{ once: true }}
           className="mb-20"
         >
-          <h2 className="text-3xl font-bold text-gray-900 mb-12 text-center">
-            Networking
+          <h2 className="text-3xl font-bold text-primary mb-12 text-center tracking-tight">
+            <RevealText triggerOnView={true}>
+              Networking
+            </RevealText>
           </h2>
           <motion.div
             variants={containerVariants}
@@ -155,15 +172,23 @@ const Skills = () => {
                 key={skill.name}
                 variants={itemVariants}
                 whileHover={{ scale: 1.05, y: -5 }}
-                className="bg-white rounded-lg shadow-md p-6 text-center hover:shadow-lg transition-all duration-300"
+                className="card card-hover p-6 text-center"
               >
                 <div className="w-20 h-20 mx-auto mb-4 flex items-center justify-center">
                   <div className="text-5xl">
                     {getSkillIcon(skill.name)}
                   </div>
                 </div>
-                <h3 className="font-semibold text-gray-900 mb-2">{skill.name}</h3>
-                <p className="text-sm text-gray-600">{skill.category}</p>
+                <h3 className="font-semibold text-primary mb-2 tracking-tight">
+                  <RevealText triggerOnView={true} delay={100}>
+                    {skill.name}
+                  </RevealText>
+                </h3>
+                <p className="text-sm text-dark-text-secondary tracking-tight">
+                  <RevealText triggerOnView={true} delay={200}>
+                    {skill.category}
+                  </RevealText>
+                </p>
               </motion.div>
             ))}
           </motion.div>
@@ -176,8 +201,10 @@ const Skills = () => {
           transition={{ duration: 0.5 }}
           viewport={{ once: true }}
         >
-          <h2 className="text-3xl font-bold text-gray-900 mb-12 text-center">
-            Operating Systems (OS)
+          <h2 className="text-3xl font-bold text-primary mb-12 text-center tracking-tight">
+            <RevealText triggerOnView={true}>
+              Operating Systems (OS)
+            </RevealText>
           </h2>
           <motion.div
             variants={containerVariants}
@@ -191,15 +218,23 @@ const Skills = () => {
                 key={skill.name}
                 variants={itemVariants}
                 whileHover={{ scale: 1.05, y: -5 }}
-                className="bg-white rounded-lg shadow-md p-6 text-center hover:shadow-lg transition-all duration-300"
+                className="card card-hover p-6 text-center"
               >
                 <div className="w-20 h-20 mx-auto mb-4 flex items-center justify-center">
                   <div className="text-5xl">
                     {getSkillIcon(skill.name)}
                   </div>
                 </div>
-                <h3 className="font-semibold text-gray-900 mb-2">{skill.name}</h3>
-                <p className="text-sm text-gray-600">{skill.category}</p>
+                <h3 className="font-semibold text-primary mb-2 tracking-tight">
+                  <RevealText triggerOnView={true} delay={100}>
+                    {skill.name}
+                  </RevealText>
+                </h3>
+                <p className="text-sm text-dark-text-secondary tracking-tight">
+                  <RevealText triggerOnView={true} delay={200}>
+                    {skill.category}
+                  </RevealText>
+                </p>
               </motion.div>
             ))}
           </motion.div>

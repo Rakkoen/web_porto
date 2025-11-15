@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
+import RevealText from './RevealText'
 
 const Footer = () => {
   const currentYear = new Date().getFullYear()
@@ -41,7 +42,7 @@ const Footer = () => {
   ]
 
   return (
-    <footer className="bg-gray-900 text-white">
+    <footer className="bg-dark-secondary border-t border-dark-border">
       <div className="container-max section-padding">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -52,9 +53,15 @@ const Footer = () => {
         >
           {/* About Section */}
           <div>
-            <h3 className="text-xl font-bold mb-4">Rakha Hendriansyah Ismail</h3>
-            <p className="text-gray-300 mb-4">
-              Building reliable digital experiences with clean code and creative design.
+            <h3 className="text-xl font-bold mb-4 text-primary tracking-tight">
+              <RevealText triggerOnView={true}>
+                Rakha Hendriansyah Ismail
+              </RevealText>
+            </h3>
+            <p className="text-dark-text-secondary mb-4">
+              <RevealText triggerOnView={true} delay={100}>
+                Building reliable digital experiences with clean code and creative design.
+              </RevealText>
             </p>
             <div className="flex space-x-4">
               {socialLinks.map((social) => (
@@ -63,7 +70,7 @@ const Footer = () => {
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-gray-300 hover:text-white transition-colors"
+                  className="text-dark-text-secondary hover:text-primary transition-colors"
                   aria-label={social.name}
                 >
                   {social.icon}
@@ -74,15 +81,21 @@ const Footer = () => {
 
           {/* Quick Links */}
           <div>
-            <h3 className="text-xl font-bold mb-4">Quick Links</h3>
+            <h3 className="text-xl font-bold mb-4 text-primary tracking-tight">
+              <RevealText triggerOnView={true}>
+                Quick Links
+              </RevealText>
+            </h3>
             <ul className="space-y-2">
               {footerLinks.map((link) => (
                 <li key={link.name}>
                   <Link
                     to={link.path}
-                    className="text-gray-300 hover:text-white transition-colors"
+                    className="text-dark-text-secondary hover:text-primary transition-colors"
                   >
-                    {link.name}
+                    <RevealText triggerOnView={true} delay={50}>
+                      {link.name}
+                    </RevealText>
                   </Link>
                 </li>
               ))}
@@ -91,16 +104,32 @@ const Footer = () => {
 
           {/* Contact Info */}
           <div>
-            <h3 className="text-xl font-bold mb-4">Contact</h3>
-            <div className="space-y-2 text-gray-300">
-              <p>Email: rakhahendriansyahismail@gmail.com</p>
-              <p>WhatsApp: +62 812-2451-3075</p>
+            <h3 className="text-xl font-bold mb-4 text-primary tracking-tight">
+              <RevealText triggerOnView={true}>
+                Contact
+              </RevealText>
+            </h3>
+            <div className="space-y-2 text-dark-text-secondary">
+              <p>
+                <RevealText triggerOnView={true} delay={50}>
+                  Email: rakhahendriansyahismail@gmail.com
+                </RevealText>
+              </p>
+              <p>
+                <RevealText triggerOnView={true} delay={100}>
+                  WhatsApp: +62 812-2451-3075
+                </RevealText>
+              </p>
             </div>
           </div>
         </motion.div>
 
-        <div className="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
-          <p>&copy; {currentYear} Rakha Hendriansyah Ismail. All rights reserved.</p>
+        <div className="border-t border-dark-border mt-8 pt-8 text-center text-dark-text-secondary">
+          <p>
+            <RevealText triggerOnView={true} delay={150}>
+              &copy; {currentYear} Rakha Hendriansyah Ismail. All rights reserved.
+            </RevealText>
+          </p>
         </div>
       </div>
     </footer>

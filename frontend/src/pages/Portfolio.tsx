@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import axios from 'axios'
+import RevealText from '../components/RevealText'
+import ExpandableCards from '../components/ExpandableCards'
 
 interface Project {
   id: number
@@ -15,6 +17,15 @@ interface Project {
   featured: boolean
 }
 
+// Function to get placeholder images from Unsplash based on category
+const getPlaceholderImage = (category: string) => {
+  const images: { [key: string]: string } = {
+    'Web Development': 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=400&h=400&fit=crop',
+    'Networking': 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=400&h=400&fit=crop'
+  }
+  return images[category] || 'https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=400&h=400&fit=crop'
+}
+
 const Portfolio = () => {
   // Portfolio data with real projects
   const portfolioData: Project[] = [
@@ -24,8 +35,10 @@ const Portfolio = () => {
       description: 'Web-based application for managing and monitoring warehouse assets and tools.',
       techStack: ['React', 'NestJS', 'TypeScript', 'MySQL', 'Docker', 'Vercel'],
       year: 2025,
-      imageUrl: '/images/warehouse-management.jpg',
-      demoUrl: 'inventory.dafalabs.net',
+      // Ganti dengan path gambar Anda di folder public/images/
+      // Contoh: '/images/warehouse-management.jpg'
+      imageUrl: '/images/ToolTrack_Disa.png', // Ganti ini dengan path gambar Anda
+      demoUrl: 'https://inventory.dafalabs.net',
       githubUrl: 'https://github.com/rakun/warehouse-management',
       category: 'Web Development',
       featured: true,
@@ -34,9 +47,11 @@ const Portfolio = () => {
       id: 2,
       title: 'Server Optimization (Syailendra Capital)',
       description: 'Infrastructure optimization and performance tuning for on-premise servers.',
-      techStack: ['Linux', 'Docker', 'PostgreSQL', 'Nginx'],
+      techStack: ['Mikrotik', 'Cisco', 'Ubiquiti', 'Ruijie', 'Fortigate'],
       year: 2024,
-      imageUrl: '/images/server-optimization.jpg',
+      // Ganti dengan path gambar Anda di folder public/images/
+      // Contoh: '/images/server-optimization.jpg'
+      imageUrl: '/images/Syailendra.png', // Ganti ini dengan path gambar Anda
       demoUrl: 'https://demo.example.com',
       githubUrl: 'https://github.com/rakun/server-optimization',
       category: 'Networking',
@@ -48,7 +63,9 @@ const Portfolio = () => {
       description: 'Installation and configuration of CCTV and wireless networks using enterprise-grade routers.',
       techStack: ['Mikrotik', 'Cisco', 'Ubiquiti', 'Ruijie', 'Fortigate', 'NMS'],
       year: 2024,
-      imageUrl: '/images/cctv-installation.jpg',
+      // Ganti dengan path gambar Anda di folder public/images/
+      // Contoh: '/images/cctv-installation.jpg'
+      imageUrl: '/images/Deliveree.png', // Ganti ini dengan path gambar Anda
       demoUrl: 'https://demo.example.com',
       githubUrl: 'https://github.com/rakun/cctv-installation',
       category: 'Networking',
@@ -60,7 +77,9 @@ const Portfolio = () => {
       description: 'Complete network infrastructure setup for a two-floor area including six CCTV cameras and router configuration.',
       techStack: ['Mikrotik', 'Ubiquiti', 'Ruijie'],
       year: 2024,
-      imageUrl: '/images/smkn6-infrastructure.jpg',
+      // Ganti dengan path gambar Anda di folder public/images/
+      // Contoh: '/images/smkn6-infrastructure.jpg'
+      imageUrl: '/images/smkn6bekasi.png', // Ganti ini dengan path gambar Anda
       demoUrl: 'https://demo.example.com',
       githubUrl: 'https://github.com/rakun/smkn6-infrastructure',
       category: 'Networking',
@@ -72,7 +91,9 @@ const Portfolio = () => {
       description: 'Responsive portfolio website built with React and TypeScript to showcase my projects and skills.',
       techStack: ['React', 'TypeScript', 'Tailwind CSS', 'Framer Motion', 'Vercel'],
       year: 2025,
-      imageUrl: '/images/portfolio-website.jpg',
+      // Ganti dengan path gambar Anda di folder public/images/
+      // Contoh: '/images/portfolio-website.jpg'
+      imageUrl: getPlaceholderImage('Web Development'), // Ganti ini dengan path gambar Anda
       demoUrl: 'https://demo.example.com',
       githubUrl: 'https://github.com/rakun/portfolio-website',
       category: 'Web Development',
@@ -114,29 +135,23 @@ const Portfolio = () => {
 
   const categories = ['all', ...Array.from(new Set(projects.map(project => project.category)))]
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-      },
-    },
-  }
-
-  const itemVariants = {
-    hidden: { y: 20, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: {
-        duration: 0.5,
-      },
-    },
-  }
+  // Transform Project data to Card format for ExpandableCards
+  const transformProjectToCard = (project: Project) => ({
+    id: project.id,
+    title: project.title,
+    image: project.imageUrl || getPlaceholderImage(project.category), // Use placeholder image
+    content: project.description,
+    // Pass project metadata as a structured object instead of a string
+    category: project.category,
+    year: project.year,
+    techStack: project.techStack,
+    demoUrl: project.demoUrl,
+    githubUrl: project.githubUrl,
+    featured: project.featured
+  })
 
   return (
-    <div className="min-h-screen pt-20">
+    <div className="min-h-screen pt-20 bg-dark-primary">
       <div className="container-max section-padding">
         {/* Header */}
         <motion.div
@@ -145,13 +160,17 @@ const Portfolio = () => {
           transition={{ duration: 0.5 }}
           className="text-center mb-16"
         >
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-            Portfolio
+          <h1 className="text-4xl md:text-5xl font-bold text-primary mb-6 tracking-tight">
+            <RevealText>
+              Portfolio
+            </RevealText>
           </h1>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Explore my collection of projects showcasing my skills in web development,
-            networking, and full-stack application development. Each project represents
-            my commitment to creating efficient, scalable solutions for real-world challenges.
+          <p className="text-xl text-dark-text-secondary max-w-3xl mx-auto tracking-tight">
+            <RevealText delay={100}>
+              Explore my collection of projects showcasing my skills in web development,
+              networking, and full-stack application development. Each project represents
+              my commitment to creating efficient, scalable solutions for real-world challenges.
+            </RevealText>
           </p>
         </motion.div>
 
@@ -166,117 +185,40 @@ const Portfolio = () => {
             <button
               key={category}
               onClick={() => setSelectedCategory(category)}
-              className={`px-6 py-2 rounded-full font-medium transition-all duration-200 ${
+              className={`px-6 py-2 rounded-full font-medium transition-all duration-200 tracking-tight ${
                 selectedCategory === category
-                  ? 'bg-primary-600 text-white'
-                  : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                  ? 'bg-primary text-dark-primary'
+                  : 'bg-dark-secondary text-dark-text-secondary border border-dark-border hover:bg-dark-tertiary'
               }`}
             >
-              {category.charAt(0).toUpperCase() + category.slice(1)}
+              <RevealText delay={50}>
+                {category.charAt(0).toUpperCase() + category.slice(1)}
+              </RevealText>
             </button>
           ))}
         </motion.div>
 
-        {/* Projects Grid */}
+        {/* All Projects - Using ExpandableCards */}
         {loading ? (
           <div className="text-center py-12">
-            <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-primary-600"></div>
+            <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
           </div>
         ) : filteredProjects.length === 0 ? (
           <div className="text-center py-12">
-            <p className="text-gray-600 text-lg">No projects found in this category.</p>
+            <p className="text-dark-text-secondary text-lg">No projects found in this category.</p>
           </div>
         ) : (
-          <motion.div
-            variants={containerVariants}
-            initial="hidden"
-            animate="visible"
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-          >
-            {filteredProjects.map((project) => (
-              <motion.div
-                key={project.id}
-                variants={itemVariants}
-                whileHover={{ y: -5 }}
-                className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300"
-              >
-                {/* Project Image */}
-                <div className="h-56 bg-gradient-to-br from-primary-400 to-primary-600 relative overflow-hidden">
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="text-white text-center p-6">
-                      <div className="text-2xl font-bold mb-2">{project.title}</div>
-                      <div className="text-sm opacity-90">{project.category}</div>
-                    </div>
-                  </div>
-                  {project.featured && (
-                    <div className="absolute top-4 right-4 bg-yellow-400 text-yellow-900 px-3 py-1 rounded-full text-xs font-semibold">
-                      Featured
-                    </div>
-                  )}
-                </div>
-
-                {/* Project Details */}
-                <div className="p-6">
-                  <h3 className="text-xl font-semibold text-gray-900 mb-3">
-                    {project.title}
-                  </h3>
-                  <p className="text-gray-600 mb-4 line-clamp-3">
-                    {project.description}
-                  </p>
-
-                  {/* Tech Stack */}
-                  <div className="flex flex-wrap gap-2 mb-6">
-                    {project.techStack.slice(0, 4).map((tech, index) => (
-                      <span
-                        key={index}
-                        className="px-3 py-1 bg-primary-100 text-primary-600 text-sm rounded-full"
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                    {project.techStack.length > 4 && (
-                      <span className="px-3 py-1 bg-gray-100 text-gray-600 text-sm rounded-full">
-                        +{project.techStack.length - 4} more
-                      </span>
-                    )}
-                  </div>
-
-                  {/* Project Links */}
-                  <div className="flex justify-between items-center">
-                    <span className="text-sm text-gray-500">{project.year}</span>
-                    <div className="flex gap-3">
-                      {project.demoUrl && (
-                        <a
-                          href={project.demoUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-primary-600 hover:text-primary-700 font-medium text-sm flex items-center gap-1"
-                        >
-                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                          </svg>
-                          Demo
-                        </a>
-                      )}
-                      {project.githubUrl && (
-                        <a
-                          href={project.githubUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-gray-600 hover:text-gray-900 font-medium text-sm flex items-center gap-1"
-                        >
-                          <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-                          </svg>
-                          Code
-                        </a>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </motion.div>
+          <div className="mb-12">
+            <h2 className="text-2xl font-bold text-primary mb-8 tracking-tight text-center">
+              <RevealText triggerOnView={true}>
+                All Projects
+              </RevealText>
+            </h2>
+            <ExpandableCards
+              cards={filteredProjects.map(transformProjectToCard)}
+              className="px-4"
+            />
+          </div>
         )}
       </div>
     </div>
